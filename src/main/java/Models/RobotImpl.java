@@ -1,17 +1,56 @@
 package Models;
 
-public class RobotImpl {
+public class RobotImpl implements Robot {
     int x;
     int y;
     boolean placed;
-    String facing;
+    Facing facing;
+    Status priorState;
 
-    //TODO: PLACE
+    @Override
+    public void place(int x, int y, String Facing) {
+    }
 
-    //TODO: MOVE
-    //TODO: LEFT
-    //TODO: RIGHT
-    //TODO: REPORT
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public void left() {
+
+    }
+
+    @Override
+    public void right() {
+
+    }
+
+    @Override
+    public String reportString() {
+        return null;
+    }
+
+    @Override
+    public Status reportValues() {
+        return null;
+    }
+
+    @Override
+    public void reset() {
+        //TODO: revert to prior state.
+    }
+
+
+    public String report() {
+        return null;
+    }
+
+    private void updatePrior(){
+        priorState.x = this.x;
+        priorState.y = this.y;
+        priorState.facing = this.facing;
+    }
 
 
 }

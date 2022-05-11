@@ -2,7 +2,7 @@ package Models;
 
 
 
-public class GridImpl {
+public class GridImpl implements Grid{
     int x;
     int y;
 
