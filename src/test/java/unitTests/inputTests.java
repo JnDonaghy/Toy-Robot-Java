@@ -1,97 +1,71 @@
 package unitTests;
 
+import Mocks.mockRobot;
 import Models.*;
 import org.junit.Before;
 import org.junit.Test;
+import Controllers.*;
+
+import java.io.ByteArrayOutputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class inputTests {
 
-    //TODO: update to use Controller
+    //TODO: update to use Controllers.Controller
     Grid grid;
+    Controller c ;
+    ByteArrayOutputStream baos;
+
+    Robot robot;
+
     @Before
     public void beforeAll(){
-        grid.init(5,5);
-    }
-    public void testCreate() {
-        // should report current robot status
-        Robot robot = new RobotImpl();
-        assert(robot != null );
-        Status status = robot.reportValues();
-        assertNull(status.x);
+        grid = new GridImpl(5,5);
+        robot = new mockRobot();
+        c = new Controller(grid, robot);
     }
 
     @Test
     public void testPlace() {
-        //Should create a robot object if valid parameters passed
-        Robot robot = new RobotImpl();
-        robot.place(0,0, "East");
-        Status status = robot.reportValues();
-        assertEquals(status.x, 0);
-        assertEquals(status.y, 0);
-        assertEquals(status.facing, Facing.EAST);
+        //Should trigger the robot.place() method
+        c.executeCommand("PLACE 0 0 EAST");
+        String status = robot.report();
+        assertEquals(status, "PLACE 0 0 EAST");
     }
 
     @Test
     public void testReport() {
-        //Should create a robot object if valid parameters passed
-        Robot robot = new RobotImpl();
-        robot.place(0,0, "East");
-        String status = robot.reportString();
-        String expectStatus = "0,0,EAST";
-        assertEquals(status, expectStatus);
+        //Should trigger the robot.reportString() method
+        c.executeCommand("REPORT");
+        String status = robot.report();
+        assertEquals(status, "REPORTSTRING");
     }
     @Test
     public void testMove() {
-        //Should create a robot object if valid parameters passed
-        Robot robot = new RobotImpl();
-        robot.place(0,0, "East");
-        robot.move();
-        Status status = robot.reportValues();
-        assertEquals(status.x, 1);
-        assertEquals(status.y, 0);
-        assertEquals(status.facing, Facing.EAST);
+        ////Should trigger the robot.move() method
+        c.executeCommand("PLACE 0 0 EAST");
+        c.executeCommand("MOVE");
+        String status = robot.report();
+        assertEquals(status, "MOVE");
     }
     @Test
     public void testTurnLeft(){
-        Robot robot = new RobotImpl();
-        robot.place(0,0, "East");
-        robot.left();
-        Status status = robot.reportValues();
-        assertEquals(status.x, 0);
-        assertEquals(status.y, 0);
-        assertEquals(status.facing, Facing.NORTH);
+        //Should trigger the robot.left() method
+        c.executeCommand("PLACE 0 0 EAST");
+        c.executeCommand("LEFT");
+        String status = robot.report();
+        assertEquals(status, "LEFT");
     }
     @Test
     public void testTurnRight(){
-        Robot robot = new RobotImpl();
-        robot.place(0,0, "East");
-        robot.right();
-        Status status = robot.reportValues();
-        assertEquals(status.x, 0);
-        assertEquals(status.y, 0);
-        assertEquals(status.facing, Facing.SOUTH);
+        //Should trigger the robot.right() method
+        c.executeCommand("PLACE 0 0 EAST");
+        c.executeCommand("RIGHT");
+        String status = robot.report();
+        assertEquals(status, "RIGHT");
     }
-    @Test
-    public void testFailIfInvalidNorth(){
-        Robot robot = new RobotImpl();
-        robot.place(0,5, "NORTH");
-        robot.move();
-        Status status = robot.reportValues();
-        assertEquals(status.x, 0);
-        assertEquals(status.y, 5);
-        assertEquals(status.facing, Facing.NORTH);
-    }
-    @Test
-    public void testFailIfInvalidEAST(){
-        Robot robot = new RobotImpl();
-        robot.place(0,5, "NORTH");
-        robot.move();
-        Status status = robot.reportValues();
-        assertEquals(status.x, 0);
-        assertEquals(status.y, 5);
-        assertEquals(status.facing, Facing.NORTH);
-    }
+
+
 }
