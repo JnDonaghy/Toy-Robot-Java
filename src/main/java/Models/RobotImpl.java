@@ -30,6 +30,7 @@ public class RobotImpl implements Robot {
 
     @Override
     public void move(Grid grid) {
+        // valid check not required, if facing is null, switch statement will do nothing.
         switch (facing){
             case EAST:
                 // +1 x direction
@@ -56,12 +57,14 @@ public class RobotImpl implements Robot {
 
     @Override
     public void left() {
-        this.facing = this.facing.next(-1);
+        if(isValid())
+            this.facing = this.facing.next(-1);
     }
 
     @Override
     public void right() {
-        this.facing = this.facing.next(1);
+        if(isValid())
+            this.facing = this.facing.next(1);
     }
 
     @Override
@@ -77,6 +80,9 @@ public class RobotImpl implements Robot {
     }
 
 
-
+    private boolean isValid(){
+        if(facing != null) return true;
+        return false;
+    }
 
 }
