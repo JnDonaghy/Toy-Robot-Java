@@ -3,9 +3,7 @@ package Models;
 public class RobotImpl implements Robot {
     int x;
     int y;
-    boolean placed;
     Facing facing;
-    Status priorState;
 
     @Override
     public void place(int x, int y, String facing, Grid grid) {
@@ -30,29 +28,29 @@ public class RobotImpl implements Robot {
 
     @Override
     public void move(Grid grid) {
-        // valid check not required, if facing is null, switch statement will do nothing.
-        switch (facing){
-            case EAST:
-                // +1 x direction
-                if(x + 1 <= grid.getX())
-                    x++;
-                break;
-            case WEST:
-                // -1 x direction
-                if(x-1 >=0)
-                    x--;
-                break;
-            case SOUTH:
-                //-1 y direction
-                if(y -1 >=0)
-                    y--;
-                break;
-            case NORTH:
-                //  +1 y direction
-                if(y+1 <= grid.getY())
-                    y++;
-                break;
-        }
+        if(isValid())
+            switch (facing){
+                case EAST:
+                    // +1 x direction
+                    if(x + 1 <= grid.getX())
+                        x++;
+                    break;
+                case WEST:
+                    // -1 x direction
+                    if(x-1 >=0)
+                        x--;
+                    break;
+                case SOUTH:
+                    //-1 y direction
+                    if(y -1 >=0)
+                        y--;
+                    break;
+                case NORTH:
+                    //  +1 y direction
+                    if(y+1 <= grid.getY())
+                        y++;
+                    break;
+            }
     }
 
     @Override
@@ -69,6 +67,13 @@ public class RobotImpl implements Robot {
 
     @Override
     public String report() {
+        //Spec has report on non-placed robot have no action.
+        //added warning, as requesting a Report and getting no response is a bad user experience
+        //and could be interpreted as a bug by user.
+        if(!isValid()){
+            System.out.println("Robot not on Board use 'PLACE x y f' command");
+            return null;
+        }
         String report = String.format("%d,%d,%s", x,y,facing);
         System.out.println(report);
         return report;

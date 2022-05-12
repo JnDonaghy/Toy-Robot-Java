@@ -36,7 +36,7 @@ public class Controller {
         String commandUpper = command.toUpperCase();
         String[] split = commandUpper.split(" ");
         if(split.length > 1) commandUpper = split[0];
-        switch (commandUpper){
+        switch (commandUpper.trim()){
             case "PLACE":
                 String xs = split [1];
                 String ys = split [2];

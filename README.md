@@ -1,3 +1,3 @@
 # Toy-Robot-Java
-Toy robot codeing challenge
+Toy robot coding challenge
 //TODO: this
