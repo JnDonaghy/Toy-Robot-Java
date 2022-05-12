@@ -1,21 +1,28 @@
 package Models;
 
+//interface for the robot object. contains functions relevant to given requirements.
 public interface Robot {
 
+    //places the robot with a given position and facing
+    void place(int x, int y, String facing, Grid grid);
 
-    //TODO: PLACE
-    void place(int x, int y, String facing,Grid grid);
+    //alternative to place that accepts and parses strings for x and y
+    void place(String x, String y, String facing, Grid grid);
 
-    //TODO: MOVE
+    //move the robot forward 1 space
     void move(Grid grid);
-    //TODO: LEFT
+
+    //turns the robot left
     void left();
-    //TODO: RIGHT
+
+    //turns the robot right
     void right();
-    //TODO: REPORT
+
+    //reports the current status of the robot
     String report();
 
-     Status reportValues();
+    //returns the status of the robot as an object for tests.
+    Status reportValues();
 
 }
 

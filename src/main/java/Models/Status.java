@@ -1,5 +1,6 @@
 package Models;
 
+//used to store an object (robot) state on the grid.
 public class Status {
     public int x;
     public int y;

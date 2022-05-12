@@ -9,7 +9,12 @@ public class mockRobot implements Robot {
 
     @Override
     public void place(int x, int y, String facing, Grid grid) {
-        action = String.format("PLACE%2d%2d %s", x,y,facing);
+        action = String.format("PLACE%2d%2d %s", x, y, facing);
+    }
+
+    @Override
+    public void place(String x, String y, String facing, Grid grid) {
+        action = String.format("PLACE %s %s %s", x, y, facing);
     }
 
     @Override

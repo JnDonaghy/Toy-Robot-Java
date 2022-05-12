@@ -1,28 +1,27 @@
 package unitTests;
 
+import Controllers.Controller;
 import Mocks.mockRobot;
-import Models.*;
+import Models.Grid;
+import Models.GridImpl;
+import Models.Robot;
+import Models.RobotImpl;
 import org.junit.Before;
 import org.junit.Test;
-import Controllers.*;
-
-import java.io.ByteArrayOutputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class inputTests {
+public class inputTest {
 
-    //TODO: update to use Controllers.Controller
     Grid grid;
-    Controller c ;
-    ByteArrayOutputStream baos;
+    Controller c;
 
     Robot robot;
 
     @Before
-    public void beforeAll(){
-        grid = new GridImpl(5,5);
+    public void beforeAll() {
+        grid = new GridImpl(5, 5);
         robot = new mockRobot();
         c = new Controller(grid, robot);
     }
@@ -32,7 +31,7 @@ public class inputTests {
         //Should trigger the robot.place() method
         c.executeCommand("PLACE 0 0 EAST");
         String status = robot.report();
-        assertEquals(status, "PLACE 0 0 EAST");
+        assertEquals("PLACE 0 0 EAST", status);
     }
 
     @Test
@@ -42,6 +41,7 @@ public class inputTests {
         String status = robot.report();
         assertEquals(status, "REPORTSTRING");
     }
+
     @Test
     public void testMove() {
         ////Should trigger the robot.move() method
@@ -50,21 +50,33 @@ public class inputTests {
         String status = robot.report();
         assertEquals(status, "MOVE");
     }
+
     @Test
-    public void testTurnLeft(){
+    public void testTurnLeft() {
         //Should trigger the robot.left() method
         c.executeCommand("PLACE 0 0 EAST");
         c.executeCommand("LEFT");
         String status = robot.report();
         assertEquals(status, "LEFT");
     }
+
     @Test
-    public void testTurnRight(){
+    public void testTurnRight() {
         //Should trigger the robot.right() method
         c.executeCommand("PLACE 0 0 EAST");
         c.executeCommand("RIGHT");
         String status = robot.report();
         assertEquals(status, "RIGHT");
+    }
+
+    @Test
+    public void testFailIfMissingPlaceParams() {
+        Robot testRobot = new RobotImpl();
+        c = new Controller(grid, testRobot);
+        c.executeCommand("PLACE 0 0");
+        c.executeCommand("PLACE 0 East 0");
+        String status = robot.report();
+        assertNull(status);
     }
 
 
