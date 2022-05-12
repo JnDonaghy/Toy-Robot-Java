@@ -27,6 +27,11 @@ public class main {
 
         System.out.println("Final Robot Status: " + robot.report());
 
+        //TODO: Run code formatting tool
+        //TODO: add Comments
+        //TODO: add E2E test
+        //TODO: add file input if needed.
+
     }
 
 }

@@ -16,6 +16,8 @@ public class Controller {
     }
 
     public void listenForCommands(){
+        System.out.println("Running Toy Robot");
+        System.out.println("Enter commands on your console. View ReadMe for commands");
         boolean done = false;
         while(!done){
             done = listenForCommand();

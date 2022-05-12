@@ -17,12 +17,12 @@ public class robotTests {
         grid = new GridImpl(xMax, yMax);
     }
 
+    @Test
     public void testCreate() {
         // should report current robot status
         Robot robot = new RobotImpl();
-        assert(robot != null );
         Status status = robot.reportValues();
-        assertNull(status.x);
+        assertNull(status.facing);
     }
 
     @Test
@@ -117,6 +117,12 @@ public class robotTests {
         assertEquals(status.y, 0);
         assertEquals(status.facing, Facing.WEST);
     }
+
+    //TODO: Test place in invalid position
+
+    //TODO: test place with missing params
+
+    //TODO: test place with invalid facing.
 
 
 }
